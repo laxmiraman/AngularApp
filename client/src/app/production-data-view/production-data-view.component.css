@@ -1,0 +1,19 @@
+.navs {
+    float: right
+}
+
+.panel, h2 {
+    width:90%;
+    margin: 0 auto;
+}
+
+#filter-panel, #main-content-panel {
+    margin-bottom:15px;
+}
+
+
+.filter-label{
+    background-color: transparent;
+    font-size:14px;
+    color:#333333;
+}

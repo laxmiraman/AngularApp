@@ -1,0 +1,33 @@
+<div class="container">
+    <h2>Login (Sign-In)</h2>
+
+    <!-- outer-panel-->
+    <div class="panel panel-default row" style="background-color:#f0f0f0; margin-top:40px">
+        <div class="panel-body"> <!-- outer-panel body-->
+
+            <!-- No filter-panel-->     
+            <br>
+            <!-- main-content-panel-->
+            <div id="main-content-panel" class="panel panel-default">
+                <div class="panel-body"> <!-- main-content-panel body-->
+
+                    <div id="user-name" class="form-group">
+                        <label>User Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="username" placeholder="Enter User Name "> 
+                    </div>
+                    <br>
+
+                    <div id="password" class="form-group">
+                        <label>Password </label>
+                        <input type="password" class="form-control" [(ngModel)]="password" placeholder="Enter Password " > 
+                    </div>
+
+                    <button type="button" class="btn btn-primary" style="margin-right:15px" (click)="getAuthenticate()" >Submit</button>
+                  <!--  <button type="button" class="btn btn-primary" >Cancel</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

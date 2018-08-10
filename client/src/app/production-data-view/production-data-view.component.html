@@ -1,0 +1,45 @@
+<div [ngBusy]="busy"></div>
+<div class="container">
+  <h2>Production Report (View)</h2>
+   <!-- outer-panel-->
+  <div class="panel panel-default row" style="background-color:#f0f0f0; margin-top:40px">
+    <div class="panel-body"> <!-- outer-panel body-->
+        <!-- filter-panel-->
+        <div id="filter-panel" class="panel panel-default">
+          <div class="panel-body" style="margin: 0 auto"> <!-- filter-panel body-->
+            <div class="row">
+              <div class="col-lg-4">
+                <div id="start-date" class="form-group">
+                  <label style="font-size:14px">Start Date:</label>
+                  <my-date-picker [selDate]='selectedFromDate' [options]="myDatePickerOptions" (dateChanged)="onFromDateChanged($event)"></my-date-picker>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div id="start-date" class="form-group">
+                  <label style="font-size:14px">End Date:</label>
+                  <my-date-picker [selDate]='selectedToDate' [options]="myDatePickerOptions" (dateChanged)="onToDateChanged($event)"></my-date-picker>
+                </div>
+              </div>
+            </div>
+          </div> <!-- end of filter-panel body-->
+        </div> <!-- end of filter-panel-->
+        <!-- main-content-panel-->
+        <div id="main-content-panel" class="panel panel-default">
+          <div class="panel-body"> <!-- main-content-panel body-->
+          <ul class="nav nav-tabs navs">
+            <li *ngFor = "let groups of this.metricGroups; let i = index;" [ngClass]="{'active': i == 0}" (click)="this.filterProductionData(groups.Data)">
+            </li>
+          </ul>
+
+          <wj-flex-grid class="view" [itemsSource]="this.filteredProductionDataValues" style="height:400px" >
+            <wj-flex-grid-filter></wj-flex-grid-filter>
+            <wj-flex-grid-column [isReadOnly]="true" [header]="'Date'" [binding]="'Date'"[width]="'*'" style="height: 300px"></wj-flex-grid-column>
+            <wj-flex-grid-column [isReadOnly]="true" [header]="'Metric Name'" [binding]="'MetricName'"[width]="'*'"></wj-flex-grid-column>
+            <wj-flex-grid-column [isReadOnly]="true" [header]="'Plan'" [width]="'*'"[binding]="'Plan'"></wj-flex-grid-column>
+            <wj-flex-grid-column [isReadOnly]="true" [header]="'Day'" [binding]="'Day'"[width]="'*'"></wj-flex-grid-column>
+          </wj-flex-grid>
+          </div> <!-- main-content-panel body-->
+        </div> <!-- main-content-panel-->
+      </div> <!-- end of outer-panel-body -->
+    </div> <!-- end of outer panel -->
+</div> <!-- end of container -->

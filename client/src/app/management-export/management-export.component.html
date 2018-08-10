@@ -1,0 +1,42 @@
+
+<div [ngBusy]="busy"></div>
+
+<div class="container">
+      <h2>Management (Export Bulk data)</h2>
+    <div class="panel panel-default row" style="background-color:#f0f0f0; margin-top:40px">
+
+        <div class="panel-body">
+
+            <div id="main-content" class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label style="font-size:14px">Start Date:</label>
+                                <my-date-picker [selDate]='selectedFromDate' [options]="myDatePickerOptionsFromDate" (dateChanged)="onFromDateChanged($event)"></my-date-picker>
+                            </div>
+                        </div>
+                        <!-- /.col-lg-6 -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label style="font-size:14px">End Date:</label>
+                                    <my-date-picker [selDate]='selectedToDate' [options]="myDatePickerOptionsToDate" (dateChanged)="onToDateChanged($event)"></my-date-picker>                            </div>
+                        </div>
+                        <!-- /.col-lg-6 -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+            <div id="footer" class="panel panel-default" style="border:0">
+                <div class="panel-body" style="margin: 0 auto">
+                    <button type="button" (click)="this.export()" class="btn btn-primary">Submit</button>
+                </div>
+
+            </div>
+        </div>
+        <!-- /. outer-panel-body -->
+    </div>
+    <!-- /. outer panel -->
+</div>
+
+<!-- /.container -->

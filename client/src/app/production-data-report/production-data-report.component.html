@@ -1,0 +1,79 @@
+<!--<div [ngBusy]="busy"></div>-->
+
+
+<div class="container">
+    <h2>Production Data (Edit)</h2>
+    <!-- outer-panel-->
+    <div class="panel panel-default row" style="background-color:#f0f0f0; margin-top:40px">
+        <div class="panel-body">
+            <!-- outer-panel body-->
+            <!-- filter-panel-->
+            <div id="filter-panel" class="panel panel-default">
+                <div class="panel-body" style="margin: 0 auto">
+                    <!-- filter-panel body-->
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div id="start-date" class="form-group">
+                                <label style="font-size:14px">Date:</label>
+                                <my-date-picker [selDate]='selectedDate' [options]="myDatePickerOptions" (dateChanged)="onDateChanged($event)"></my-date-picker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end of filter-panel body-->
+            </div>
+            <!-- end of filter-panel-->
+            <!-- main-content-panel-->
+            <div id="main-content-panel" class="panel panel-default">
+                <div class="panel-body">
+                    <!-- main-content-panel body-->
+                    <ul class="nav nav-tabs navs">
+                        <li *ngFor="let groups of this.metricGroups; let i = index;" [ngClass]="{'active': i == 0}" (click)="this.filterProductionData(groups.MetricGroup)">
+                            <a class="nav-link" [ngClass]="{'active': i == 0}" data-toggle="tab" href="">{{groups.MetricGroup}}</a>
+                        </li>
+                    </ul>
+
+                    <!-- using wijmo flex-grid prerelease version. Need to install production version when available.
+            There is an bug with the latest production version where wj-flex-grid-column is not working.
+            see link for details: http://wijmo.com/topic/error-when-upgrade-angular-2-2-1-cannot-read-property-directive-of-undefined/
+            -->
+                    <wj-flex-grid class="edit" [itemsSource]="this.filteredProductionDataValues" style="height: 200px">
+                        <wj-flex-grid-filter></wj-flex-grid-filter>
+                        <wj-flex-grid-column [isReadOnly]="true" [header]="'Metric Name'" [binding]="'MetricName'" [width]="'*'"></wj-flex-grid-column>
+                        <wj-flex-grid-column [isReadOnly]="false" [header]="'Plan'" [binding]="'Plan'" [width]="'*'">
+                            <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                <span *ngIf="cell.item.PlanValueActionType == false">Calculated: {{cell.item.Plan}}</span>
+                <span *ngIf="cell.item.PlanValueActionType == true || cell.item.PlanValueActionType == null">{{cell.item.Plan}}</span>
+              </template>
+                        </wj-flex-grid-column>
+                        <wj-flex-grid-column [header]="'Day'" [binding]="'Day'" [width]="'*'">
+                            <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                <span *ngIf="cell.item.DayValueActionType == false">Calculated: {{cell.item.Day}}</span>
+                <span *ngIf="cell.item.DayValueActionType == true || cell.item.DayValueActionType == null">{{cell.item.Day}}</span>
+              </template>
+                      
+                        </wj-flex-grid-column>
+                        <wj-flex-grid-column [header]="'Comments'" [binding]="'Comments'" [width]="'*'"></wj-flex-grid-column>
+                    </wj-flex-grid>
+                    <div class="calculated"> <b>Last Calculated:</b> {{calculationDateTime}}</div>
+                </div>
+
+                <!-- main-content-panel body-->
+            </div>
+            <!-- main-content-panel-->
+            <!-- footer-panel-->
+            <div id="footer-panel" class="panel panel-default" style="border:0" *ngIf="this.filteredProductionDataValues.length > 0">
+                <div class="panel-body" style="margin: 0 auto">
+                    <!-- footer-panel body-->
+                    <button type="button" class="btn btn-primary" (click)="this.submitProductionData()" style="margin-right:15px">Save & Compute</button>
+                    <!--<button type="button" class="btn btn-primary">Clear</button> -->
+                </div>
+                <!-- end of footer-panel body-->
+            </div>
+            <!-- end of footer-panel-->
+        </div>
+        <!-- end of outer-panel-body -->
+    </div>
+    <!-- end of outer panel -->
+</div>
+<!-- end of container -->
