@@ -8,9 +8,9 @@ namespace AngularApp.Services
 {
     public class LoginService
     {
-        IPACCARContext _context;
+        IContext _context;
 
-        public LoginService(IPACCARContext context)
+        public LoginService(IContext context)
         {
             _context = context;
 
@@ -61,9 +61,7 @@ namespace AngularApp.Services
             IEnumerable<Locations> locations = _context.Locations.ToList();
 
             var dataOutput = from userLoc in userlocations
-                             join l in locations on userLoc.LocationsId equals l.Id
-                             join u in users on userLoc.UsersId equals u.Id
-                             join role in roles on u.RolesId equals role.Id                             
+                             join l in locations on userLoc.LocationsId equals l.Id                      
                              where u.UserName == username & u.Password == password
                         
                                select new
@@ -84,29 +82,7 @@ namespace AngularApp.Services
             return json;
         }
 
-        private String buildAuthenticateData(String authenticationData)
-        {
-             JObject output = new JObject();
-
-             JArray authenticationDataArray = JArray.Parse(authenticationData);
-             JArray Locations = new JArray();
-
-            foreach (JObject data in authenticationDataArray)
-            {
-                Locations.Add(data["LocationId"]);
-                Locations.Add(data["LocationName"]);
-            }
-
-                 output.Add("UserLocationId", authenticationDataArray[0]["UserLocationId"]);
-                 output.Add("UserId", authenticationDataArray[0]["UserId"]);
-                 output.Add("UserName", authenticationDataArray[0]["UserName"]);
-                 output.Add("Password", authenticationDataArray[0]["Password"]);
-                 output.Add("RoleId", authenticationDataArray[0]["RoleId"]);
-                 output.Add("RoleName", authenticationDataArray[0]["RoleName"]);
-                 output.Add("Locations", Locations);
-                     
-            return JsonConvert.SerializeObject(output);
-        }
+        
       }
     }
 
